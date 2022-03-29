@@ -10,6 +10,7 @@ aka Role Based Access Control as a prelude to multitenancy backend.
 - Redis
 - Nats Streaming Server
 - Docker
+- Passport js
 - Kubernetes
 
 ## License
