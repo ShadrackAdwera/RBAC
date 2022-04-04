@@ -1,7 +1,10 @@
 import { HttpError } from '@adwesh/common';
 import express, { Request, Response, NextFunction } from 'express';
+import { authRouter } from './routes/auth-routes';
 
 const app = express();
+
+app.use('/api/auth', authRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   return next(new HttpError('This method / route does not exist', 404));

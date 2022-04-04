@@ -7,6 +7,10 @@ if (!process.env.MONGO_URI) {
   throw new HttpError('MONGO_URI must be defined', 500);
 }
 
+if (!process.env.JWT_KEY) {
+  throw new HttpError('JWT_KEY must be defined', 500);
+}
+
 const startUp = async () => {
   await mongoose.connect(process.env.MONGO_URI!);
   app.listen(5000);
