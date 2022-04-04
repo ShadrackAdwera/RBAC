@@ -55,12 +55,10 @@ const signUp = async (req: Request, res: Response, next: NextFunction) => {
     return next(new HttpError('An error occured, try again', 500));
   }
 
-  res
-    .status(201)
-    .json({
-      message: 'Sign Up Successful',
-      user: { id: newUser.id, email: newUser.email, token },
-    });
+  res.status(201).json({
+    message: 'Sign Up Successful',
+    user: { id: newUser.id, email: newUser.email, token },
+  });
 };
 
 export { signUp };

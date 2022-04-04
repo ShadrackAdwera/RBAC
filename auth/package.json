@@ -4,7 +4,7 @@
   "description": "role based access control authentication",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts"
+    "start": "ts-node-dev index.ts"
   },
   "author": "adwera",
   "license": "ISC",
