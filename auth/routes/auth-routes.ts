@@ -1,6 +1,7 @@
 import { body } from 'express-validator';
 import express from 'express';
-import { login, signUp } from '../controllers/auth-controllers';
+import { login, signUp, getUsers } from '../controllers/auth-controllers';
+import { checkAuth } from '@adwesh/common';
 
 const router = express.Router();
 
@@ -22,5 +23,9 @@ router.post(
   ],
   login
 );
+
+router.use(checkAuth);
+
+router.get('/users', getUsers);
 
 export { router as authRouter };
