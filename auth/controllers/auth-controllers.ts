@@ -102,4 +102,16 @@ const login = async(req: Request, res: Response, next: NextFunction) => {
   res.status(201).json({message: 'Login Successful', user: { id: foundUser.id, email, token, role: foundUser.role }})
 }
 
-export { signUp, login };
+const getUsers = async(req: Request, res: Response, next: NextFunction) => {
+  let foundUsers;
+
+  try {
+    foundUsers = await User.find().exec();
+  } catch (error) {
+    return next(new HttpError('An error occured', 500));
+  }
+
+  res.status(200).json({foundUsers});
+}
+
+export { signUp, login, getUsers };

@@ -12,9 +12,13 @@ if (!process.env.JWT_KEY) {
 }
 
 const startUp = async () => {
-  await mongoose.connect(process.env.MONGO_URI!);
-  app.listen(5000);
-  console.log('Connected to Auth Service, Listening on port: 5000');
+  try {
+    await mongoose.connect(process.env.MONGO_URI!);
+    app.listen(5000);
+    console.log('Connected to Auth Service, Listening on port: 5000');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 startUp();
