@@ -38,7 +38,7 @@ const signUp = async (req: Request, res: Response, next: NextFunction) => {
   const newUser = new User({
     username,
     email,
-    password,
+    password: hashedPassword,
   });
 
   try {
@@ -73,7 +73,7 @@ const login = async(req: Request, res: Response, next: NextFunction) => {
 
   //check if email exists in the DB
   try {
-      foundUser = await User.findOne({email}).populate('section').exec();
+      foundUser = await User.findOne({email}).exec();
   } catch (error) {
       return next(new HttpError('An error occured, try again', 500));
   }
@@ -104,6 +104,18 @@ const login = async(req: Request, res: Response, next: NextFunction) => {
 
 const getUsers = async(req: Request, res: Response, next: NextFunction) => {
   let foundUsers;
+  let currentUser;
+  //add middleware to handle this;
+  try {
+    currentUser = await User.findById(req.user?.userId).exec();
+  } catch (error) {
+    return next(new HttpError('Internal Server Error', 500));
+  }
+
+  if(currentUser?.role !=='Admin') {
+    return next(new HttpError('You are not authorized to view this page', 403));
+  }
+
 
   try {
     foundUsers = await User.find().exec();
