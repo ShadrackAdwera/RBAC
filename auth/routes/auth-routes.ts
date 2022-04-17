@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 import express from 'express';
-import { signUp } from '../controllers/auth-controllers';
+import { login, signUp } from '../controllers/auth-controllers';
 
 const router = express.Router();
 
@@ -12,6 +12,15 @@ router.post(
     body('password').trim().isLength({ min: 6 }),
   ],
   signUp
+);
+
+router.post(
+  '/login',
+  [
+    body('email').trim().normalizeEmail().isEmail(),
+    body('password').trim().isLength({ min: 6 }),
+  ],
+  login
 );
 
 export { router as authRouter };
